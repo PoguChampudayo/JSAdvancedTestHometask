@@ -1,0 +1,15 @@
+.cardSystemImages {
+    display: flex
+}
+
+.cardSystemImage {
+    display:block;
+    margin-left: 5px;
+    width: 40px; 
+    height: 25px;
+    background-color: gray;
+}
+
+.cardHidden {
+    display:none;
+}

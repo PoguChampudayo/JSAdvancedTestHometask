@@ -1,0 +1,34 @@
+{
+    "AMEX": {
+        "startsWith": [34, 37],
+        "length" : [15]
+    },
+    "Discover": {
+        "startsWith": [6011, 622126 to 622925, 644, 645, 646, 647, 648, 649, 65],
+        "length" : [16, 17, 18, 19]
+    },
+    "JCB": {
+        "startsWith": [3528 to 3589],
+        "length" : [16, 17, 18, 19]
+    },
+    "Maestro": {
+        "startsWith": [5018, 5020, 5038, 5893, 6304, 6759, 6761, 6762, 6763],
+        "length" : [16, 17, 18, 195]
+    },
+    "MasterCard": {
+        "startsWith": [51, 52, 53, 54, 55, 2221-2720],
+        "length" : [16]
+    },
+    "Mir": {
+        "startsWith": [2],
+        "length" : [16]
+    },
+    "VisaElectron": {
+        "startsWith": [4026, 417500, 4508, 4844, 4913, 4917],
+        "length" : [16]
+    },
+    "Visa": {
+        "startsWith": [4],
+        "length" : [13, 16, 19]
+    }
+}
