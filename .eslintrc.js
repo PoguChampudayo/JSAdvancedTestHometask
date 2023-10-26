@@ -21,5 +21,6 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
+    'no-restricted-syntax': ['error', 'ForInStatement', 'LabeledStatement', 'WithStatement'],
   },
 };

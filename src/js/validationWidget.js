@@ -2,21 +2,37 @@ import {
   amex, discover, jcb, maestro, masterCard, mir, visa, visaElectron,
 } from './systemIdentifiers';
 
-export function validateLuhn(number) {
+// function validateLuhn(number) {
+//   const check = Number(String(number).slice(-1));
+//   let row = String(number).split('').slice(0, -1);
+//   row = row.map((el) => Number(el));
+//   row = row.map((el) => {
+//     if (!(row.indexOf(el) % 2)) {
+//       return el * 2;
+//     }
+//     return el;
+//   });
+//   row = row.map((el) => {
+//     if (el > 9) return el - 9;
+//     return el;
+//   });
+//   return check === row.reduce((acc, cur) => acc + cur, 0);
+// }
+
+function validateLuhn(number) {
   const check = Number(String(number).slice(-1));
-  let row = String(number).split('').slice(0, -1);
-  row = row.map((el) => Number(el));
-  row = row.map((el) => {
-    if (!(row.indexOf(el) % 2)) {
-      return el * 2;
+  const row = String(number).split('').slice(0, -1).map(Number)
+    .reverse();
+  for (const [index] of row.entries()) {
+    if (index % 2 === 0) {
+      row[index] *= 2;
+      if (row[index] > 9) {
+        row[index] -= 9;
+      }
     }
-    return el;
-  });
-  row = row.map((el) => {
-    if (el > 9) return el - 9;
-    return el;
-  });
-  return check === row.reduce((acc, cur) => acc + cur, 0);
+  }
+  const result = row.reduce((acc, cur) => acc + cur, 0);
+  return check === result % 10;
 }
 
 export default class ValidationWidget {
@@ -27,7 +43,6 @@ export default class ValidationWidget {
     this.checkCreditCardLength = this.checkCreditCardLength.bind(this);
     this.findCreditCardSystem = this.findCreditCardSystem.bind(this);
     this.applySystemtoDOM = this.applySystemtoDOM.bind(this);
-    this.onButtonPress = this.onButtonPress.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.input.addEventListener('input', this.applySystemtoDOM);
     this.form.addEventListener('submit', this.onSubmit);
@@ -35,14 +50,15 @@ export default class ValidationWidget {
   }
 
   checkCreditCardLength() {
-    if (amex(this.input.value)) return this.input.value.length === 15;
-    if (discover(this.input.value)) return this.input.value.length === 14;
-    if (jcb(this.input.value)) return (this.input.value.length >= 16 && this.input.value <= 19);
-    if (maestro(this.input.value)) return (this.input.value.length >= 16 && this.input.value <= 19);
-    if (masterCard(this.input.value)) return this.input.value.length === 16;
-    if (mir(this.input.value)) return this.input.value.length === 16;
-    if (visa(this.input.value)) return (this.input.value.length >= 13 && this.input.value <= 19);
-    if (visaElectron(this.input.value)) return this.input.value.length === 16;
+    const l = this.input.value.length;
+    if (amex(this.input.value)) return l === 15;
+    if (discover(this.input.value)) return l === 14;
+    if (jcb(this.input.value)) return (l >= 16 && l <= 19);
+    if (maestro(this.input.value)) return (l >= 16 && l <= 19);
+    if (masterCard(this.input.value)) return l === 16;
+    if (mir(this.input.value)) return l === 16;
+    if (visaElectron(this.input.value)) return l === 16;
+    if (visa(this.input.value)) return (l >= 13 && l <= 19);
     return false;
   }
 
@@ -77,20 +93,21 @@ export default class ValidationWidget {
     }
   }
 
-  onButtonPress() {
-    if (this.checkCreditCardLength(this.input.value) && this.validateLuhn(this.input.value)) {
+  onSubmit(e) {
+    e.preventDefault();
+    if (this.checkCreditCardLength() && validateLuhn(Number(this.input.value))) {
       alert('Номер карты верен');
     } else {
       alert('Номер карты неверен');
     }
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.input);
+    this.input.value = '';
+    const event = new Event('input');
+    this.input.dispatchEvent(event);
   }
 
   initiate() {
-    console.log(this.input);
+    this.input.value = '';
+    const event = new Event('input');
+    this.input.dispatchEvent(event);
   }
 }
