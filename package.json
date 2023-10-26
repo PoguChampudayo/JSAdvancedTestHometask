@@ -36,6 +36,11 @@
     "webpack-merge": "^5.9.0"
   },
   "dependencies": {
-    "core-js": "3"
+    "core-js": "3",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "webpack": "^5.88.2",
+    "webpack-merge": "^5.9.0"
   }
 }
