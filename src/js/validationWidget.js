@@ -31,7 +31,7 @@ export default class ValidationWidget {
     this.onSubmit = this.onSubmit.bind(this);
     this.input.addEventListener('input', this.applySystemtoDOM);
     this.form.addEventListener('submit', this.onSubmit);
-    this.cardIcons = document.querySelectorAll('.cardSystemImage')
+    this.cardIcons = document.querySelectorAll('.cardSystemImage');
   }
 
   checkCreditCardLength() {
@@ -60,26 +60,21 @@ export default class ValidationWidget {
   }
 
   applySystemtoDOM() {
-    
     if (this.input.value === '') {
-        
-        this.cardIcons.forEach((el => {
-            el.classList.remove('cardHidden')
-        }))
-    }
-    else {
-    const cardValidation = this.findCreditCardSystem();
-    
-    for (let i = 0; i < this.cardIcons.length; i++) {
-        if (cardValidation[this.cardIcons[i].id]) {
-            this.cardIcons.item(i).classList.remove('cardHidden')
-        }
-        else {
-            this.cardIcons.item(i).classList.add('cardHidden')
-        }
-    }
-    }
+      this.cardIcons.forEach(((el) => {
+        el.classList.remove('cardHidden');
+      }));
+    } else {
+      const cardValidation = this.findCreditCardSystem();
 
+      for (let i = 0; i < this.cardIcons.length; i += 1) {
+        if (cardValidation[this.cardIcons[i].id]) {
+          this.cardIcons.item(i).classList.remove('cardHidden');
+        } else {
+          this.cardIcons.item(i).classList.add('cardHidden');
+        }
+      }
+    }
   }
 
   onButtonPress() {
