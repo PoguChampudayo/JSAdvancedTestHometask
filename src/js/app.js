@@ -1,3 +1,4 @@
-import ValidationWidget from "./validationWidget";
+import ValidationWidget from './validationWidget';
 
-const validationWidget = new ValidationWidget("validatorForm")
+const validationWidget = new ValidationWidget('validatorForm');
+validationWidget.initiate();
