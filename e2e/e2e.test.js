@@ -39,14 +39,9 @@ describe('Credit Card Validator form', () => {
     const input = await form.$('.cardNumberInput');
     const submit = await form.$('.validationButton');
 
-    await input.type('4539728546325067')
-    await submit.click()
+    await input.type('4539728546325067');
+    await submit.click();
 
     await page.waitFor('.sign ok');
-    
-
-
-
-
   });
 });

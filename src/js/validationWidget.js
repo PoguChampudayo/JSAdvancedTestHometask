@@ -23,8 +23,8 @@ export default class ValidationWidget {
     this.form = document.forms[form];
     this.input = this.form.input;
     this.button = this.form.button;
-    this.okSign = document.querySelector('.ok')
-    this.wrongSign = document.querySelector('.wrong')
+    this.okSign = document.querySelector('.ok');
+    this.wrongSign = document.querySelector('.wrong');
     this.checkCreditCardLength = this.checkCreditCardLength.bind(this);
     this.findCreditCardSystem = this.findCreditCardSystem.bind(this);
     this.applySystemtoDOM = this.applySystemtoDOM.bind(this);
@@ -81,11 +81,11 @@ export default class ValidationWidget {
   onSubmit(e) {
     e.preventDefault();
     if (this.checkCreditCardLength() && validateLuhn(Number(this.input.value))) {
-      this.okSign.classList.remove('signHidden')
-      this.wrongSign.classList.add('signHidden')
+      this.okSign.classList.remove('signHidden');
+      this.wrongSign.classList.add('signHidden');
     } else {
-        this.okSign.classList.add('signHidden')
-        this.wrongSign.classList.remove('signHidden')
+      this.okSign.classList.add('signHidden');
+      this.wrongSign.classList.remove('signHidden');
     }
     this.input.value = '';
     const event = new Event('input');
