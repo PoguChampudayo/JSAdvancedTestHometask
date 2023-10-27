@@ -2,23 +2,6 @@ import {
   amex, discover, jcb, maestro, masterCard, mir, visa, visaElectron,
 } from './systemIdentifiers';
 
-// function validateLuhn(number) {
-//   const check = Number(String(number).slice(-1));
-//   let row = String(number).split('').slice(0, -1);
-//   row = row.map((el) => Number(el));
-//   row = row.map((el) => {
-//     if (!(row.indexOf(el) % 2)) {
-//       return el * 2;
-//     }
-//     return el;
-//   });
-//   row = row.map((el) => {
-//     if (el > 9) return el - 9;
-//     return el;
-//   });
-//   return check === row.reduce((acc, cur) => acc + cur, 0);
-// }
-
 function validateLuhn(number) {
   const check = Number(String(number).slice(-1));
   const row = String(number).split('').slice(0, -1).map(Number)
@@ -32,7 +15,7 @@ function validateLuhn(number) {
     }
   }
   const result = row.reduce((acc, cur) => acc + cur, 0);
-  return check === result % 10;
+  return (check === result % 10) || ((check + result) % 10 === 0);
 }
 
 export default class ValidationWidget {
@@ -40,6 +23,8 @@ export default class ValidationWidget {
     this.form = document.forms[form];
     this.input = this.form.input;
     this.button = this.form.button;
+    this.okSign = document.querySelector('.ok')
+    this.wrongSign = document.querySelector('.wrong')
     this.checkCreditCardLength = this.checkCreditCardLength.bind(this);
     this.findCreditCardSystem = this.findCreditCardSystem.bind(this);
     this.applySystemtoDOM = this.applySystemtoDOM.bind(this);
@@ -96,9 +81,11 @@ export default class ValidationWidget {
   onSubmit(e) {
     e.preventDefault();
     if (this.checkCreditCardLength() && validateLuhn(Number(this.input.value))) {
-      alert('Номер карты верен');
+      this.okSign.classList.remove('signHidden')
+      this.wrongSign.classList.add('signHidden')
     } else {
-      alert('Номер карты неверен');
+        this.okSign.classList.add('signHidden')
+        this.wrongSign.classList.remove('signHidden')
     }
     this.input.value = '';
     const event = new Event('input');

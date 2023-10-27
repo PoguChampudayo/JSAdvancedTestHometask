@@ -1,10 +1,11 @@
 {
-  "name": "JSAdvancedEventHometask",
+  "name": "JSAdvancedTestHometask",
   "packageManager": "yarn@3.6.4",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "testCover": "jest --coverage",
+    "e2e": "jest --testPathPattern=./e2e/ --runInBand",
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --config webpack.dev.js",
     "lint": "eslint .",
@@ -35,6 +36,7 @@
     "css-minimizer-webpack-plugin": "^5.0.1",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
+    "puppeteer": "^21.4.1",
     "webpack": "^5.88.2",
     "webpack-merge": "^5.9.0"
   }

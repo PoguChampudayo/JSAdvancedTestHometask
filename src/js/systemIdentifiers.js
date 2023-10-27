@@ -33,7 +33,7 @@ export function maestro(number) {
 }
 
 export function masterCard(number) {
-  const n = [51, 52, 53, 54, 55, ...range(2221, 2720)];
+  const n = [51, 52, 53, 54, 55, ...range(2221, 2721)];
   return n.some((el) => String(number).startsWith(String(el).slice(0, String(number).length)));
 }
 
