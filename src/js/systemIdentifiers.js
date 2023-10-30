@@ -38,7 +38,8 @@ export function masterCard(number) {
 }
 
 export function mir(number) {
-  return String(number).startsWith('2');
+  const n = [...range(2200, 2204)];
+  return n.some((el) => String(number).startsWith(String(el).slice(0, String(number).length)));
 }
 
 export function visaElectron(number) {

@@ -41,7 +41,7 @@ export default class ValidationWidget {
     if (jcb(this.input.value)) return (l >= 16 && l <= 19);
     if (maestro(this.input.value)) return (l >= 16 && l <= 19);
     if (masterCard(this.input.value)) return l === 16;
-    if (mir(this.input.value)) return l === 16;
+    if (mir(this.input.value)) return (l >= 16 && l <= 19);
     if (visaElectron(this.input.value)) return l === 16;
     if (visa(this.input.value)) return (l >= 13 && l <= 19);
     return false;
