@@ -7,7 +7,7 @@ describe('Credit Card Validator form', () => {
   let browser = null;
   let page = null;
   let server = null;
-  const baseUrl = 'http://localhost:8080/';
+  const baseUrl = 'http://localhost:9000';
 
   beforeAll(async () => {
     server = fork(`${__dirname}/e2e.server.js`);
@@ -33,7 +33,7 @@ describe('Credit Card Validator form', () => {
     server.kill();
   });
 
-  test('should add do something', async () => {
+  test('should check if number is valid', async () => {
     await page.goto(baseUrl);
     const form = await page.$('.validatorForm');
     const input = await form.$('.cardNumberInput');
@@ -42,6 +42,18 @@ describe('Credit Card Validator form', () => {
     await input.type('4539728546325067');
     await submit.click();
 
-    await page.waitFor('.sign ok');
+    await page.waitForTimeout('sign ok');
+  });
+
+  test('should check if number is not valid', async () => {
+    await page.goto(baseUrl);
+    const form = await page.$('.validatorForm');
+    const input = await form.$('.cardNumberInput');
+    const submit = await form.$('.validationButton');
+
+    await input.type('4539728546324967');
+    await submit.click();
+
+    await page.waitForTimeout('sign wrong');
   });
 });
